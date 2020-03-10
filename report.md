@@ -17,13 +17,13 @@ The following features are also added to improve the agent training
 - :arrow_right: Weight update using averaged minibatch of gradient estimates in a serial way ([ref](https://github.com/TDeVries/enas_pytorch/blob/master/train.py))
 
 <kbd>
-  <img src="https://user-images.githubusercontent.com/59391289/76312175-bf475a00-62d2-11ea-903f-b79a0a63cd77.png" width="500">
-  <img src="https://user-images.githubusercontent.com/59391289/76312620-b905ad80-62d3-11ea-94bc-369fda11a377.png" width="500">
+  <img src="https://user-images.githubusercontent.com/59391289/76312175-bf475a00-62d2-11ea-903f-b79a0a63cd77.png" width="400">
+  <img src="https://user-images.githubusercontent.com/59391289/76312620-b905ad80-62d3-11ea-94bc-369fda11a377.png" width="400">
 </kbd>
 
 ## Results of revised work
 Since the dataset used is quite simple for classification, a network with one hidden layer is used for test. The output shows some variance, which needs to play with hyperparameters. More complex dataset should be better for verification.
 <kbd>
-  <img src="https://user-images.githubusercontent.com/59391289/76348189-1287cf80-6308-11ea-9c17-674e126f399a.png" width="500">
-  <img src="https://user-images.githubusercontent.com/59391289/76348345-54b11100-6308-11ea-98a0-870c363cb439.png" width="500">
+  <img src="https://user-images.githubusercontent.com/59391289/76348189-1287cf80-6308-11ea-9c17-674e126f399a.png" width="400">
+  <img src="https://user-images.githubusercontent.com/59391289/76348345-54b11100-6308-11ea-98a0-870c363cb439.png" width="400">
 </kbd>
