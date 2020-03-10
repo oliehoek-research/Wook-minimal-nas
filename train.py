@@ -44,19 +44,22 @@ if __name__ == '__main__':
 
     rewards = []
     losses = []
+    advs = []
 
     print('Training controller...')
 
     for i in range(num_rollouts):
-        reward = controller.generate_rollout(dl_train, dl_dev)
-        loss = controller.optimize()
-        controller.beta *= 0.99
-        
+        reward, adv = controller.generate_rollout(dl_train, dl_dev)
+        loss = controller.optimize(i)
+        ## controller.beta *= 0.99
+
         rewards.append(reward)
+        advs.append(adv)
         losses.append(loss)
 
         if i % 100 == 0 and i > 0:
-            print(f'Rollout {i}, mean reward: {np.mean(rewards[-100:])}, beta: {controller.beta}, loss: {np.mean(losses[-100:])}')
+            ## print(f'Rollout {i}, mean reward: {np.mean(rewards[-100:])}, beta: {controller.beta}, loss: {np.mean(losses[-100:])}, network: {controller.actions}')
+            print(f'Rollout {i}, reward: {rewards[-1]}, advantage: {advs[-1]}, loss: {losses[-1]}, network: {controller.actions}')
 
     with open('rewards_losses.pkl', 'wb') as handle:
-        pkl.dump((rewards, losses), handle, protocol=pkl.HIGHEST_PROTOCOL)
+        pkl.dump((rewards, advs, losses), handle, protocol=pkl.HIGHEST_PROTOCOL)
