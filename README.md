@@ -1,4 +1,9 @@
+*Note: short report on experiment with changes can be found in [report.md](report.md).*
+
+---
+
 # Minimal implementation of a Neural Architecture Search system
+
 
 This repository implements a simple Neural Architecture Search (NAS) system in PyTorch. Heavily inspired by the work of [Barret Zoph & Quoc V. Le (2016)](https://arxiv.org/abs/1611.01578).
 

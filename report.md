@@ -1,29 +1,36 @@
-## Results of original work
-It looks like the source code not working properly. For example, the following shows test results with 4 different runs over 5,000 rollouts without any changes.  
+## Original work
+The results may not be consistent. For example, the following shows 3 different runs without modification.  
 
-| # | 1 | 2 | 3 | 4 |
-| -- | --- | --- | --- | --- |
-|Accuracy | 0.81 | 0.43 | 0.58 | 0.70 |
-|Generated actions for child network | ```[1, 'Sigmoid', 'EOS']``` | ```['ReLU', 16, 16, 16, 16, 16]``` | ```[16, 'ReLU', 'ReLU', 'ReLU', 'ReLU', 'ReLU']``` | ```['Sigmoid', 'Sigmoid', 'EOS']``` |
-|Rollout plot | ![test_1](https://user-images.githubusercontent.com/59391289/76166792-876cd500-6161-11ea-9f26-36e230f966d6.png) | ![test_2](https://user-images.githubusercontent.com/59391289/76166806-b2efbf80-6161-11ea-8cad-89fb80b4f29c.png) | ![test_3](https://user-images.githubusercontent.com/59391289/76166865-49bc7c00-6162-11ea-8edb-08eeafbab350.png) | ![test_4](https://user-images.githubusercontent.com/59391289/76166889-74a6d000-6162-11ea-9c0f-ce886169b36c.png) |
+| # | 1 | 2 | 3 |
+| -- | --- | --- | --- |
+| Accuracy | 0.81 | 0.43 | 0.58 |
+| Generated child network | ```[1, 'Sigmoid', 2]``` | ```['ReLU', 16, 16, 16, 16, 16, 2]``` | ```[16, 'ReLU', 'ReLU', 'ReLU', 'ReLU', 'ReLU', 2]``` |
+| Rollout plot | ![test_1](https://user-images.githubusercontent.com/59391289/76166792-876cd500-6161-11ea-9f26-36e230f966d6.png) | ![test_2](https://user-images.githubusercontent.com/59391289/76166806-b2efbf80-6161-11ea-8cad-89fb80b4f29c.png) | ![test_3](https://user-images.githubusercontent.com/59391289/76166865-49bc7c00-6162-11ea-8edb-08eeafbab350.png) |
 
-## Modification
-Although implemented in a minimal fashion, several important points different from the original work of [Barret Zoph & Quoc V. Le (2016)](https://arxiv.org/abs/1611.01578) are found and changed accordingly to see if they are helpful.
-- Zero input to all controller cells :arrow_right: Autoregressive connection with ```embedding```layers added
-- Arbitrary combination of actions allowed out of [1, 2, 4, 8, 16, ```Sigmoid```, ```Tanh```, ```ReLU```, ```LeakyReLU```, ```EOS```], at most 6 actions to select with output layer of 2 neurons, some negative rewards given to unusual configurations :arrow_right: The order is fixed. ```Linear``` layers should be followed by activation function per each, plus the output layer.  
+## Test with changes
+Although intended for minimal implementation, several points different from the paper of [Barret Zoph & Quoc V. Le (2016)](https://arxiv.org/abs/1611.01578) are found and changed accordingly to see if they are helpful.
 
-The following features are also added to improve the agent training
-- :arrow_right: Moving average baseline ([ref](https://github.com/carpedm20/ENAS-pytorch/blob/master/trainer.py))
-- :arrow_right: Weight update using averaged minibatch of gradient estimates in a serial way ([ref](https://github.com/TDeVries/enas_pytorch/blob/master/train.py))
+##### Controller
+- Cells connected in autoregressive fashion, with ```embedding```layers added in between.
+
+##### Training
+- Moving average baseline to reduce variance
+- Some change in hyperparameters, reward and others
+
+##### Dataset
+- Tested with [2D full-moon](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_circles.html) as well as [half-moon](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html)   
 
 <kbd>
   <img src="https://user-images.githubusercontent.com/59391289/76312175-bf475a00-62d2-11ea-903f-b79a0a63cd77.png" width="400">
-  <img src="https://user-images.githubusercontent.com/59391289/76312620-b905ad80-62d3-11ea-94bc-369fda11a377.png" width="400">
+  <img src="https://user-images.githubusercontent.com/59391289/77008206-00400e00-6966-11ea-862b-1e067252f27d.png" width="400">
 </kbd>
 
-## Results of revised work
-Since the dataset used is quite simple for classification, a network with one hidden layer is used for test. The output shows some variance, which needs to play with hyperparameters. More complex dataset should be better for verification.
-<kbd>
-  <img src="https://user-images.githubusercontent.com/59391289/76348189-1287cf80-6308-11ea-9c17-674e126f399a.png" width="400">
-  <img src="https://user-images.githubusercontent.com/59391289/76348345-54b11100-6308-11ea-98a0-870c363cb439.png" width="400">
-</kbd>
+## Experiment result
+Application of the **baseline** turns out to be a key factor for convergence.
+
+| Dataset | Half-moon | Full-moon |
+| :-: | :-: | :-: |
+| Reward | ![reward1](https://user-images.githubusercontent.com/59391289/77013945-7b5af180-6971-11ea-87cc-81449606ca4c.png) | ![reward2](https://user-images.githubusercontent.com/59391289/77014148-ed333b00-6971-11ea-8e59-fce80aef2be1.png)
+ |
+| Advantage | ![adv1](https://user-images.githubusercontent.com/59391289/77014051-b3623480-6971-11ea-82e1-0cd95d993e9e.png) | ![adv2](https://user-images.githubusercontent.com/59391289/77014189-04722880-6972-11ea-8a44-5917dca8e64a.png)
+ |

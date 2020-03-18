@@ -21,7 +21,8 @@ class Dataset(data.Dataset):
 def load_dataset(p_val=0.1, p_test=0.2):
     np.random.seed(0)
     num_samples = 1000
-    X, y = sklearn.datasets.make_moons(num_samples, noise=0.2)
+    ## X, y = sklearn.datasets.make_moons(num_samples, noise=0.2)
+    X, y = sklearn.datasets.make_circles(num_samples, noise=0.05)
 
     train_end = int(len(X)*(1-p_val-p_test))
     val_end = int(len(X)*(1-p_test))
@@ -40,7 +41,7 @@ def load_dataset(p_val=0.1, p_test=0.2):
 if __name__ == '__main__':
     dl_train, dl_dev, dl_test = load_dataset()
     controller = Controller()
-    num_rollouts = 5000
+    num_rollouts = 2000
 
     rewards = []
     losses = []
@@ -50,16 +51,16 @@ if __name__ == '__main__':
 
     for i in range(num_rollouts):
         reward, adv = controller.generate_rollout(dl_train, dl_dev)
-        loss = controller.optimize(i)
+        loss = controller.optimize()
         ## controller.beta *= 0.99
 
         rewards.append(reward)
         advs.append(adv)
         losses.append(loss)
 
-        if i % 100 == 0 and i > 0:
-            ## print(f'Rollout {i}, mean reward: {np.mean(rewards[-100:])}, beta: {controller.beta}, loss: {np.mean(losses[-100:])}, network: {controller.actions}')
-            print(f'Rollout {i}, reward: {rewards[-1]}, advantage: {advs[-1]}, loss: {losses[-1]}, network: {controller.actions}')
+        if (i + 1) % 100 == 0 and i > 0:
+            ## print(f'Rollout {i}, mean reward: {np.mean(rewards[-100:])}, beta: {controller.beta}, loss: {np.mean(losses[-100:])}')
+            print(f'Rollout {i + 1}, mean reward: {np.mean(rewards[-100:])}, advantage: {advs[-1]}, beta: {controller.beta}, loss: {np.mean(losses[-100:])}, network: {controller.actions}')
 
     with open('rewards_losses.pkl', 'wb') as handle:
         pkl.dump((rewards, advs, losses), handle, protocol=pkl.HIGHEST_PROTOCOL)
