@@ -30,7 +30,5 @@ Application of the **baseline** turns out to be a key factor for convergence.
 
 | Dataset | Half-moon | Full-moon |
 | :-: | :-: | :-: |
-| Reward | ![reward1](https://user-images.githubusercontent.com/59391289/77013945-7b5af180-6971-11ea-87cc-81449606ca4c.png) | ![reward2](https://user-images.githubusercontent.com/59391289/77014148-ed333b00-6971-11ea-8e59-fce80aef2be1.png)
- |
-| Advantage | ![adv1](https://user-images.githubusercontent.com/59391289/77014051-b3623480-6971-11ea-82e1-0cd95d993e9e.png) | ![adv2](https://user-images.githubusercontent.com/59391289/77014189-04722880-6972-11ea-8a44-5917dca8e64a.png)
- |
+| Reward | ![reward1](https://user-images.githubusercontent.com/59391289/77013945-7b5af180-6971-11ea-87cc-81449606ca4c.png) | ![reward2](https://user-images.githubusercontent.com/59391289/77014148-ed333b00-6971-11ea-8e59-fce80aef2be1.png) |
+| Advantage | ![adv1](https://user-images.githubusercontent.com/59391289/77014051-b3623480-6971-11ea-82e1-0cd95d993e9e.png) | ![adv2](https://user-images.githubusercontent.com/59391289/77014189-04722880-6972-11ea-8a44-5917dca8e64a.png) |
