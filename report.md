@@ -2,7 +2,7 @@
 The results may not be consistent. For example, the following shows 3 different runs without modification.  
 
 | # | 1 | 2 | 3 |
-| -- | --- | --- | --- |
+| :-: | :-: | :-: | :-: |
 | Accuracy | 0.81 | 0.43 | 0.58 |
 | Generated child network | ```[1, 'Sigmoid', 2]``` | ```['ReLU', 16, 16, 16, 16, 16, 2]``` | ```[16, 'ReLU', 'ReLU', 'ReLU', 'ReLU', 'ReLU', 2]``` |
 | Rollout plot | ![test_1](https://user-images.githubusercontent.com/59391289/76166792-876cd500-6161-11ea-9f26-36e230f966d6.png) | ![test_2](https://user-images.githubusercontent.com/59391289/76166806-b2efbf80-6161-11ea-8cad-89fb80b4f29c.png) | ![test_3](https://user-images.githubusercontent.com/59391289/76166865-49bc7c00-6162-11ea-8edb-08eeafbab350.png) |
